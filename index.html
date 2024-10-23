@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <title>Toxic GAmer | Payment</title>
+    <link rel="stylesheet" href="styles..css">
+   
+  <body class="container mt-5">
+    <form onsubmit="sendContact(event)">
+        <h1>Payment</h1><br><br>
+       <div class="mb-3">
+        <label for="nameInput" class="form-label">Enter your name</label>
+        <input type="name" class="form-control" id="nameInput" placeholder="Enter your Name" required><br><br>  
+      <div class="mb-3">
+        <label for="emailInput" class="form-label">Enter your email address</label>
+        <input type="email" class="form-control" id="emailInput" placeholder="example@gmail.com" required><br><br>
+        <div class="mb-3">
+            <label for="numberInput" class="form-label">Enter your phonr number</label>
+            <input type="number" class="form-control" id="numberInput" placeholder="+880" required><br><br>
+      </div>
+      <div class="mb-3">
+        <label for="amountInput" class="form-label">Amount</label>
+        <input type="number" class="form-control" id="amountInput" required><br><br>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <script>
+      async function sendContact(ev) {
+        ev.preventDefault();
+
+        const senderName = document
+          .getElementById('nameInput').value;
+        const senderEmail = document
+          .getElementById('emailInput').value;
+        const senderNumber = document
+          .getElementById('numberInput').value;  
+        const senderAmount = document
+          .getElementById('amountInput').value;  
+
+        const webhookBody = {
+          embeds: [{
+            title: 'Payment Form Submitted',
+            fields: [
+              { name: 'Sender Name', value: senderName },
+              { name: 'Sender Email', value: senderEmail },
+              { name: 'Number', value: senderNumber },
+              { name: 'Amount', value: senderAmount },
+            ]
+          }],
+        };
+
+        const webhookUrl = 'https://discord.com/api/webhooks/1297927522213695540/7TdML5y1xKmvvONS1e-flA0xjKemSNk0bjiA4tlUsJg6v-GOw3_Q20EUYGwM32I9ZtkR';
+
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(webhookBody),
+        });
+
+        if (response.ok) {
+          alert('Please keep on eye on Discord we will contact you soon!');
+        } else {
+          alert('There was an error! Try again later!');
+        }
+      }
+    </script>
+  </body>
+</html>
